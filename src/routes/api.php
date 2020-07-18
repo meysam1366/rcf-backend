@@ -29,6 +29,8 @@ Route::prefix('v1')->group(function () {
     Route::prefix('/channel')->group(function () {
         Route::get('/all','API\V01\Channel\ChannelController@getAllChannelsList')->name('channel.all');
         Route::post('/create','API\V01\Channel\ChannelController@createNewChannel')->name('channel.create');
+        Route::put('/update','API\V01\Channel\ChannelController@updateChannel')->name('channel.update');
+        Route::delete('/delete','API\V01\Channel\ChannelController@deleteChannel')->name('channel.delete');
     });
 
 });

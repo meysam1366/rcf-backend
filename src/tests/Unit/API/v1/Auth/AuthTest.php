@@ -1,12 +1,13 @@
 <?php
 
-namespace Tests\Unit\Http\Controllers\API\V01\Auth;
+namespace Tests\Unit\API\v1\Auth;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
-class AuthControllerTest extends TestCase
+class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -16,7 +17,7 @@ class AuthControllerTest extends TestCase
     public function test_register_should_be_validated()
     {
         $response = $this->postJson(route('auth.register'));
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -29,13 +30,13 @@ class AuthControllerTest extends TestCase
             'email' => "safir.1987@gmail.com",
             'password' => "12345678"
         ]);
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
     }
 
     public function test_login_should_be_validate()
     {
         $response = $this->postJson(route('auth.login'));
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_user_can_login_with_true_credentials()
@@ -46,7 +47,7 @@ class AuthControllerTest extends TestCase
             'email' => $user->email,
             'password' => "password"
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -56,7 +57,7 @@ class AuthControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->get(route('auth.user'));
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -66,6 +67,6 @@ class AuthControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->postJson(route('auth.logout'));
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }
