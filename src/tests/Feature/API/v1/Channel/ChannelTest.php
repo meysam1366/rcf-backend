@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\API\v1\Channel;
+namespace Tests\Feacher\API\v1\Channel;
 
 use App\Channel;
 use App\User;

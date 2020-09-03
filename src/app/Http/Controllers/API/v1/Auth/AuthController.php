@@ -24,7 +24,7 @@ class AuthController extends Controller
         // Validate From Inputs
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email','unique:users'],
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required']
         ]);
 
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => "User Created Successfully"
-        ],Response::HTTP_CREATED);
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -50,13 +50,13 @@ class AuthController extends Controller
     {
         // Validate From Inputs
         $request->validate([
-            'email' => ['required','email'],
+            'email' => ['required', 'email'],
             'password' => ['required']
         ]);
 
         // Check User Credential For Login
-        if (Auth::attempt($request->only(['email','password']))) {
-            return response()->json(Auth::user(),Response::HTTP_OK);
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            return response()->json(Auth::user(), Response::HTTP_OK);
         }
 
         throw ValidationException::withMessages([
@@ -66,7 +66,7 @@ class AuthController extends Controller
 
     public function user()
     {
-        return response()->json(Auth::user(),Response::HTTP_OK);
+        return response()->json(Auth::user(), Response::HTTP_OK);
     }
 
     public function logout()
@@ -75,6 +75,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'logged out successfully'
-        ],Response::HTTP_OK);
+        ], Response::HTTP_OK);
     }
 }
