@@ -2,6 +2,9 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\v1\Thread\ThreadController;
 
-Route::resource('threads','ThreadController');
+Route::resource('threads','API\v1\Thread\ThreadController');
+
+Route::prefix('/threads')->group(function () {
+    Route::resource('answers','API\v1\Thread\AnswerController');
+});
